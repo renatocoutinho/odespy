@@ -32,6 +32,7 @@ u(i,k) approximating u(i)  (i=1,2,3) at the interior points
 Terms involving boundary values (subscripts 0 or 100) are dropped
 from the equations for k = 1 and k = 99 above.
 """
+from __future__ import print_function
 from odespy import *
 import scitools.std as st
 import numpy as np
@@ -209,7 +210,7 @@ st.plot(t, u[:,0], 'g-', title="Lsoibt with Python functions",
 u_final = u[-1].reshape(99,3)
 u1, u2, u3 = u_final[:, 0], u_final[:, 1], u_final[:, 2]
 max_error = max(max(u1 - u1_exact), max(u2 - u2_exact), max(u3 - u3_exact))
-print 'Max error with Test case 1 is %g' % max_error
+print('Max error with Test case 1 is %g' % max_error)
 
 # Test case 2: Lsoibt, with res, adda, mb, nb
 m = method(rtol=rtol, atol=atol, res=res, adda_lsoibt=adda, 
@@ -222,4 +223,4 @@ st.plot(t, u[:,0], 'r*', title="Lsoibt with Python functions",
 u_final = u[-1].reshape(99,3)
 u1, u2, u3 = u_final[:, 0], u_final[:, 1], u_final[:, 2]
 max_error = max(max(u1 - u1_exact), max(u2 - u2_exact), max(u3 - u3_exact))
-print 'Max error with Test case 2 is %g' % max_error
+print('Max error with Test case 2 is %g' % max_error)

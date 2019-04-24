@@ -4,6 +4,7 @@
 This example intends to show users how to apply MyRungeKutta to define 
 own RungKutta solvers.
 """
+from __future__ import print_function
 from odespy import *
 #import scitools.basics,easyviz as st
 import scitools.std as st
@@ -45,7 +46,7 @@ for m in bt.keys():
     method.set_initial_condition(u0)
     u,t = method.solve(time_points)
     error = abs((u[-1] - np.exp(-1.))/np.exp(-1.))
-    print 'Error is %g with solver %s' % (error, m)
+    print('Error is %g with solver %s' % (error, m))
 
 
 

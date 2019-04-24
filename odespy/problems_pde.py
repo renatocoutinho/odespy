@@ -1,4 +1,5 @@
-from problems import Problem, np
+from __future__ import absolute_import
+from .problems import Problem, np
 
 class Diffusion1D(Problem):
     """

@@ -1,7 +1,9 @@
 # Author: Liwei Wang
 """
 """
-from solvers import *
+from __future__ import print_function
+from __future__ import absolute_import
+from .solvers import *
 import numpy as np
 
 class Pyds(Solver):
@@ -24,10 +26,10 @@ class Pyds(Solver):
 
     def initialize(self):
         try:
-            import PyDSTool
+            from . import PyDSTool
         except ImportError:
-            raise ImportError,'''
-        PyDSTool is not installed - required for solvers from PyDSTool'''
+            raise ImportError('''
+        PyDSTool is not installed - required for solvers from PyDSTool''')
 
     def solve(self, time_points, terminate=None):
         # Common parts as superclass
@@ -45,7 +47,7 @@ class Pyds(Solver):
         # through Python dictionaries with string keys.
                 
         # Start setting for PyDSTool
-        import PyDSTool
+        from . import PyDSTool
         neq, f, u0 = self.neq, self.f, self.U0
         
         # Initialize variables as trajectories in PyDSTOOL
@@ -148,7 +150,7 @@ if __name__ == '__main__':
     method = Vode_pyds(f)
     method.set_initial_condition([0.,1.])
     u,t = method.solve(np.linspace(0.,10.,50))
-    print u
+    print(u)
     import scitools.std as st
     st.plot(t,u[:,0])
-    print max(u[:,0]-np.sin(t))
+    print(max(u[:,0]-np.sin(t)))

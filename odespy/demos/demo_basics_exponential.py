@@ -1,3 +1,4 @@
+from __future__ import print_function
 # Author: Liwei Wang
 
 # Scalar ODE:  Exponential
@@ -17,7 +18,7 @@ solvers = [solver for solver in list_available_solvers() if solver not in except
 f=lambda u,t:-u
 u0, time_points = 1., np.linspace(0., 10., 100)
 
-print """Scalar ODE: Exponential u = exp(-t), u' = -u"""
+print("""Scalar ODE: Exponential u = exp(-t), u' = -u""")
 
 # Loop for all possible solvers
 for solver in solvers:
@@ -30,6 +31,6 @@ for solver in solvers:
             st.figure()           # Initialize new figure.
         st.plot(t, u, hold="on", legend=solver, axis=[0., 10., 0., 1.5])
         solver_no += 1
-        print 'Succeed when solver is %s' % solver
+        print('Succeed when solver is %s' % solver)
     except:
-        print 'Failed when solver is %s' % solver
+        print('Failed when solver is %s' % solver)

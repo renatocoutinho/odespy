@@ -8,6 +8,7 @@ This example is the typical usage of Lsodi with
 user-supplied functions composed in Fortran code.
 
 """
+from __future__ import print_function
 from odespy import *
 import scitools.std as st
 import numpy as np
@@ -141,7 +142,7 @@ m.set_initial_condition(u0)
 u,t = m.solve(time_points)
 st.plot(t, u[:,0], 'b-', title="Radau5 with Fortran subroutines",
         legend="with f, mas & jac_full", hold="on")
-print 'Max error for test case 1 is %g' % max(u[-1] - exact_final)
+print('Max error for test case 1 is %g' % max(u[-1] - exact_final))
 
 # Test case 2: Radau5, with f, mas
 m = method(None, f_f77=f_f77, mas_f77=mas_f77, rtol=rtol, atol=atol)
@@ -149,7 +150,7 @@ m.set_initial_condition(u0)
 u,t = m.solve(time_points)
 st.plot(t, u[:,0], 'r*', title="Radau5 with Fortran subroutines",
         legend="with f, mas", hold="on")
-print 'Max error for test case 2 is %g' % max(u[-1] - exact_final)
+print('Max error for test case 2 is %g' % max(u[-1] - exact_final))
 
 # compile these Fortran subroutines
 os.remove('tmp_callback.so')
@@ -170,7 +171,7 @@ m.set_initial_condition(u0)
 u,t = m.solve(time_points)
 st.plot(t, u[:,0], 'b-', title="Radau5 with Fortran subroutines",
         legend="with f, mas_banded & jac_banded", hold="on")
-print 'Max error for test case 3 is %g' % max(u[-1] - exact_final)
+print('Max error for test case 3 is %g' % max(u[-1] - exact_final))
 
 os.remove('tmp_callback2.so')
 

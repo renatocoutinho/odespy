@@ -26,6 +26,7 @@ Simplified Galerkin Solution of Burgers Equation
         0.0000E+00  0.0000E+00  0.5000E+00  0.1000E+01  0.1000E+01  0.1000E+01
         0.5000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00
 """
+from __future__ import print_function
 
 from odespy import *
 import scitools.std as st
@@ -96,7 +97,7 @@ m.set_initial_condition(u0)
 u,t = m.solve(time_points)
 st.plot(t, u[:,0], 'b-', title="Radau5 with Python functions",
         legend="with f, mas & jac_full", hold="on")
-print 'Max error for test case 1 is %g' % max(u[-1] - exact_final)
+print('Max error for test case 1 is %g' % max(u[-1] - exact_final))
 
 # Test case 2: Radau5, with f, mas
 m = method(f=f, mas=mas, rtol=rtol, atol=atol)
@@ -104,7 +105,7 @@ m.set_initial_condition(u0)
 u,t = m.solve(time_points)
 st.plot(t, u[:,0], 'r*', title="Radau5 with Python functions",
         legend="with f, mas", hold="on")
-print 'Max error for test case 2 is %g' % max(u[-1] - exact_final)
+print('Max error for test case 2 is %g' % max(u[-1] - exact_final))
 
 # Test case 3: Radau5, with f, mas_banded, ml, mu & jac_banded
 m = method(f=f, mas=mas_banded, rtol=rtol, atol=atol,
@@ -114,6 +115,6 @@ m.set_initial_condition(u0)
 u,t = m.solve(time_points)
 st.plot(t, u[:,0], 'b-', title="Radau5 with Python functions",
         legend="with f, mas & jac_banded", hold="on")
-print 'Max error for test case 3 is %g' % max(u[-1] - exact_final)
+print('Max error for test case 3 is %g' % max(u[-1] - exact_final))
 
 

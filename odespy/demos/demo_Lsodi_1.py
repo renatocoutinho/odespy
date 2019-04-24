@@ -9,6 +9,7 @@ du2/dt = 0.04*u1-1e4*u2*u3-3e7*u2*u2
 This example is the typical usage of Lsodi with 
 user-supplied functions composed in Python.
 """
+from __future__ import print_function
 from odespy import *
 import scitools.std as st
 import numpy as np
@@ -52,7 +53,7 @@ m.set_initial_condition(u0)
 u,t = m.solve(time_points)
 st.plot(t, u[:,0], 'b-', title="Lsodi with Python functions",
         legend="with res, adda, ydoti & jac", hold="on")
-print 'Max error for test case 1 is %g' % max(u[-1] - exact_final)
+print('Max error for test case 1 is %g' % max(u[-1] - exact_final))
 
 # Test case 2: Lsodi, with res, ydoti & adda
 m = method(res=res, rtol=rtol, atol=atol, ydoti=ydoti,
@@ -61,6 +62,6 @@ m.set_initial_condition(u0)
 u,t = m.solve(time_points)
 st.plot(t, u[:,0], 'r*', title="Lsodi with Python functions",
         legend="with res, adda & ydoti", hold="on")
-print 'Max error for test case 1 is %g' % max(u[-1] - exact_final)
+print('Max error for test case 1 is %g' % max(u[-1] - exact_final))
 
 

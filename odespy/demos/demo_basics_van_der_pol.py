@@ -1,3 +1,4 @@
+from __future__ import print_function
 # Stiff ODE:  Van der Pol oscillator
 # u'' = 3*(1 - u**2)*u' - u
 from odespy import *
@@ -16,8 +17,8 @@ jac = lambda (u00,u11),t: \
 
 u0, time_points = [2., 0.], np.linspace(0., 10., 100)
 
-print """Van der Pol oscillator problem:
-     u'' = 3*(1 - u**2)*u' - u"""
+print("""Van der Pol oscillator problem:
+     u'' = 3*(1 - u**2)*u' - u""")
 
 # Loop for all possible solvers
 for solver in solvers:
@@ -30,6 +31,6 @@ for solver in solvers:
             solver_no = 1
         st.plot(t, u[:,0], hold="on", legend=solver, axis=[0.,10.,-4.,4.])
         solver_no += 1
-        print 'Succeed when solver is %s' % solver
+        print('Succeed when solver is %s' % solver)
     except:
-        print 'Failed when solver is %s' % solver
+        print('Failed when solver is %s' % solver)

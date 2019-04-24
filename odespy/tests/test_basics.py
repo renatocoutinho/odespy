@@ -12,6 +12,7 @@ between its solution and an exact analytical solution, and compare
 future simulations with the recorded difference (check that these are
 within machine precision, here taken as 1E-14).
 """
+from __future__ import print_function
 # Author: Liwei Wang and Hans Petter Langtangen
 
 import odespy
@@ -244,11 +245,11 @@ def _run_test_problems(problem):
                      'f_kwargs')
     kwargs = {key: problem[key] for key in problem
               if key not in special_names}
-    print problem.get('help', '')
+    print(problem.get('help', ''))
     for method in methods:
 
         solver = eval('odespy.%s' % method)(problem['f'], **kwargs)
-        print 'Testing %s' % method,
+        print('Testing %s' % method, end=' ')
         solver.set_initial_condition(problem['u0'])
         u, t = solver.solve(problem['time_points'])
 
@@ -277,10 +278,10 @@ def _run_test_problems(problem):
             if method in problem['exact_diff']:
                 nt.assert_almost_equal(diff, problem['exact_diff'][method],
                                        delta=1E-14)
-                print '...ok'
+                print('...ok')
             else:
                 pass
-                print ' no exact diff available for comparison'
+                print(' no exact diff available for comparison')
         if 'exact_final_diff' in problem:
             u_final = np.asarray(u[-1])
             exact_final = np.asarray(problem['exact_final'])
@@ -288,9 +289,9 @@ def _run_test_problems(problem):
             if method in problem['exact_final_diff']:
                 nt.assert_almost_equal(diff, problem['exact_final_diff'][method],
                                        delta=1E-14)
-                print '...ok'
+                print('...ok')
             else:
-                print ' no exact final diff available for comparison'
+                print(' no exact final diff available for comparison')
 
 def test_exponentinal():
     _run_test_problems(Exponential)
@@ -321,7 +322,7 @@ def test_EulerCromer_1dof():
     x_exact = lambda t: np.cos(t)
     x_e = x_exact(t)
     #plot(t, x, t, x_e, legend=('EC', 'exact'))
-    print 'Testing EulerCromer',
+    print('Testing EulerCromer', end=' ')
     # Test difference in final value
     if N == 60:
         diff_exact = 0.0014700112828
@@ -329,7 +330,7 @@ def test_EulerCromer_1dof():
         tol = 1E-14
         assert abs(diff_exact - diff_EC) < tol, \
                'diff_exact=%g, diff_EulerCromer=%g' % (diff_exact, diff_EC)
-        print '...ok'
+        print('...ok')
 
 def test_terminate():
     problem = Exponential
@@ -338,9 +339,9 @@ def test_terminate():
     u, t = solver.solve(problem['time_points'], terminate=problem['terminate'])
     exact_diff = 0.0321206486802586
     diff = abs(problem['stop_value']-u[-1])
-    print 'Testing RKFehlberg with terminate function',
+    print('Testing RKFehlberg with terminate function', end=' ')
     nt.assert_almost_equal(diff, exact_diff, delta=1E-14)
-    print '...ok'
+    print('...ok')
 
 def test_switch_to():
     problem = Exponential
@@ -351,9 +352,9 @@ def test_switch_to():
     u2, t2 = solver_new.solve(problem['time_points'])
     diff = np.abs(u - u2).max()
     exact_diff = 0.0000015284633990
-    print 'Testing switch_to from RKFehlberg to Lsode',
+    print('Testing switch_to from RKFehlberg to Lsode', end=' ')
     nt.assert_almost_equal(diff, exact_diff, delta=1E-14)
-    print '...ok'
+    print('...ok')
 
 
 if __name__ == '__main__':

@@ -1,3 +1,4 @@
+from __future__ import print_function
 # Nonstiff ODE:  Sine
 # u'' = - u,   u = sin(t)
 
@@ -17,7 +18,7 @@ jac = lambda (u00,u11),t: \
 
 u0, time_points = [0., 1.], np.linspace(0., 10., 100)
 
-print """Nonstiff ODE: Sine u = sin(t), u'' = -u"""
+print("""Nonstiff ODE: Sine u = sin(t), u'' = -u""")
 
 # Loop for all possible solvers
 for solver in solvers:
@@ -30,7 +31,7 @@ for solver in solvers:
             solver_no = 1
         st.plot(t, u[:,0], hold="on", legend=solver, axis=[0., 10., -1.5, 1.5])
         solver_no += 1
-        print 'Succeed when solver is %s' % solver
+        print('Succeed when solver is %s' % solver)
     except:
-        print 'Failed when solver is %s' % solver
+        print('Failed when solver is %s' % solver)
 

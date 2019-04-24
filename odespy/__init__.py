@@ -5,6 +5,7 @@ high-level Python code. Both scalar ODEs and systems of ODEs are
 supported.  A wide range of numerical methods for ODEs are offered:
 
 """
+from __future__ import absolute_import
 
 # Insert tutorial from ../doc/src/odespy/odespy.rst
 
@@ -1255,13 +1256,13 @@ The file `logistic10.py <https://github.com/hplgit/odespy/blob/master/doc/src/od
 with :math:`f(u,t)` implemented in Fortran.
 '''
 
-from solvers import *
-from RungeKutta import *
-from rkc import *
-from rkf45 import *
-from odepack import *
-from radau5 import *
-import problems
+from .solvers import *
+from .RungeKutta import *
+from .rkc import *
+from .rkf45 import *
+from .odepack import *
+from .radau5 import *
+from . import problems
 
 # Update doc strings with common info
 class_, doc_str, classname = None, None, None
@@ -1283,7 +1284,7 @@ __doc__ =  __doc__ + typeset_toc(toc) + _tutorial
 
 # Do not pollute namespace
 del class_, doc_str, classname, classnames, toc, typeset_toc, \
-    table_of_parameters, name, obj, inspect
+    table_of_parameters, inspect
 
 if __name__ == '__main__':
     from os.path import join

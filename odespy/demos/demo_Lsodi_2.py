@@ -27,6 +27,7 @@ Simplified Galerkin Solution of Burgers Equation
         0.5000E+00  0.0000E+00  0.0000E+00  0.0000E+00  0.0000E+00
 
 """
+from __future__ import print_function
 from odespy import *
 #import scitools.basics,easyviz as st
 import scitools.std as st
@@ -113,7 +114,7 @@ m.set_initial_condition(u0)
 u,t = m.solve(time_points)
 st.plot(t, u[:,0], 'r-', title="Lsodi with Python functions",
         legend="with res, adda_full & jac_full", hold="on")
-print 'Max error with test case 1 is %g' % max(u[-1] - exact_final)
+print('Max error with test case 1 is %g' % max(u[-1] - exact_final))
 
 
 # Test case 2: Lsodi, with res & adda_full
@@ -122,7 +123,7 @@ m.set_initial_condition(u0)
 u,t = m.solve(time_points)
 st.plot(t, u[:,0], 'b*', title="Lsodi with Python functions",
         legend="with res & adda_full", hold="on")
-print 'Max error with test case 2 is %g' % max(u[-1] - exact_final)
+print('Max error with test case 2 is %g' % max(u[-1] - exact_final))
 
 # Test case 3: Lsodi, with res, adda_banded, ml, mu, jac_banded
 m = method(res=res, rtol=rtol, atol=atol, 
@@ -133,7 +134,7 @@ m.set_initial_condition(u0)
 u,t = m.solve(time_points)
 st.plot(t, u[:,0], 'go', title="Lsodi with Python functions",
         legend="with res, adda_banded, jac_banded, ml, mu", hold="on")
-print 'Max error with test case 3 is %g' % max(u[-1] - exact_final)
+print('Max error with test case 3 is %g' % max(u[-1] - exact_final))
 
 # Test case 4: Lsodi, with res, adda_banded, ml, mu
 m = method(res=res, rtol=rtol, atol=atol, 
@@ -143,7 +144,7 @@ m.set_initial_condition(u0)
 u,t = m.solve(time_points)
 st.plot(t, u[:,0], 'y-', title="Lsodi with Python functions",
         legend="with res, adda_banded, ml, mu", hold="on")
-print 'Max error with test case 4 is %g' % max(u[-1] - exact_final)
+print('Max error with test case 4 is %g' % max(u[-1] - exact_final))
 
 
 

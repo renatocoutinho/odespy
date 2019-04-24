@@ -1,6 +1,7 @@
 """Module for wrapping rkf45.py."""
+from __future__ import absolute_import
 
-from solvers import Solver, Adaptive
+from .solvers import Solver, Adaptive
 import numpy as np
 
 
