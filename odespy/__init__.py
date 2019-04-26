@@ -730,7 +730,7 @@ AdamsBashforth2
 ...
 Vode
 lsoda_scipy
-odefun_sympy
+odefun_mpmath
 odelab
 
 A similar function, ``list_available_solvers``, returns a list of the
