@@ -85,8 +85,8 @@ odefun_sympy=0.0000000000000000,
 
 Sine = dict(
     help="Sine, u'' = -u, u = sin(t)",
-    f=lambda (u00,u11),t : [u11, -u00],
-    jac=lambda (u00,u11),t: [[0., 1.], [- 1., 0.]],
+    f=lambda u,t : [u[1], -u[0]],
+    jac=lambda u,t: [[0., 1.], [- 1., 0.]],
     time_points=np.linspace(0., 1, 10),
     # These solvers are not suitable for this ODE problem
     exceptions=['Lsodi', 'Lsodes', 'Lsodis', 'Lsoibt', 'MyRungeKutta',
@@ -143,8 +143,8 @@ odefun_sympy=0.0000000000000000,
 
 VanDerPol = dict(
     help="Van der Pol oscillator problem:  u'' = 3*(1 - u**2)*u' - u",
-    f=lambda (u00,u11),t: [u11, 3.*(1 - u00**2)*u11 - u00],
-    jac=lambda (u00,u11),t: [[0., 1.], [-6.*u00*u11 - 1., 3.*(1. - u00**2)]],
+    f=lambda u,t: [u[1], 3.*(1 - u[0]**2)*u[1] - u[0]],
+    jac=lambda u,t: [[0., 1.], [-6.*u[0]*u[1] - 1., 3.*(1. - u[0]**2)]],
     u0=[2., 0.],
     # These solvers are not suitable for this ODE problem
     exceptions=['RKC', 'Lsodes', 'Leapfrog', 'Lsodi', 'Lsodis', 'Lsoibt',
@@ -307,7 +307,7 @@ def test_complex():
 
 def test_EulerCromer_1dof():
     """Plain u'' + u = 0."""
-    solver = odespy.EulerCromer(lambda (v, x), t: [-x, v])
+    solver = odespy.EulerCromer(lambda vx, t: [-vx[1], vx[0]])
     #solver = odespy.EulerCromer(lambda u, t: [-u[1], u[0]])
     solver.set_initial_condition([0, 1])
     P = 2*np.pi
