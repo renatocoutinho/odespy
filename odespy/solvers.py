@@ -45,7 +45,7 @@ On the other hand, if the original package is also a Python software,
 developers need to install and import (in ``initialize``) the desired
 package as a Python module and just write a class in the ``Solver``
 hierarchy that calls the proper functions in the package. See the
-classes ``odefun_sympy`` and ``ode_scipy`` (and its subclasses).
+classes ``odefun_mpmath`` and ``ode_scipy`` (and its subclasses).
 
 By an attempt to import these necessary modules (often set in method
 initialize()), we can check whether the necessary dependencies are
@@ -106,7 +106,7 @@ feasible to implement ``advance`` because one wants to rely on the
 software's ability to solve the whole ODE problem. Then it is more
 natural to write a new ``solve`` method (using ``Solver.solve`` as
 model) and call up the solve functionality in the external
-software. Class ``odefun_sympy`` provides an example. On the other
+software. Class ``odefun_mpmath`` provides an example. On the other
 hand, the wrappers for the ``scipy`` solvers (``vode`` for instance)
 applies ``solve`` from the present package and the ``scipy`` functions
 for doing one (adaptive) time step, called in the ``advance`` method.
@@ -994,7 +994,7 @@ class Solver:
         # Test first if U0 is sequence (len(U0) possible),
         # and use that as indicator for system of ODEs.
         # The below code should work for U0 having
-        # float,int,sympy.mpmath.mpi and other objects as elements.
+        # float,int,mpmath.mpi and other objects as elements.
         try:
             self.neq = len(U0)
             U0 = np.asarray(U0)          # (assume U0 is sequence)
@@ -1999,22 +1999,22 @@ def approx_Jacobian(f, u0, t0, h):
         return J.transpose()
 
 
-class odefun_sympy(Solver):
+class odefun_mpmath(Solver):
     """
-    Wrapper for the sympy.mpmath.odefun method, which applies a high-order
+    Wrapper for the mpmath.odefun method, which applies a high-order
     Taylor series method to solve ODEs.
     """
-    quick_description = "Very accurate high order Taylor method (from SymPy)"
+    quick_description = "Very accurate high order Taylor method (from mpmath)"
 
     def initialize(self):
         try:
-            import sympy
-            self.sympy = sympy
+            import mpmath
+            self.mpmath = mpmath
         except ImportError:
-            raise ImportError('sympy is not installed - needed for sympy_odefun')
+            raise ImportError('mpmath is not installed - needed for mpmath_odefun')
 
     def initialize_for_solve(self):
-        # sympy.odefun requires f(t, u), not f(u, t, *args, **kwargs)
+        # mpmath.odefun requires f(t, u), not f(u, t, *args, **kwargs)
         # (self.f already handles f_args, f_kwargs)
         self.f4odefun = lambda t, u: self.f(u, t)
         Solver.initialize_for_solve(self)
@@ -2022,7 +2022,7 @@ class odefun_sympy(Solver):
     def solve(self, time_points, terminate=None):
         """
         The complete solve method must be overridded in this class
-        since sympy.mpmath.odefun is such a solve method.
+        since mpmath.odefun is such a solve method.
 
         The class stores an attribute ufunc (return from odefun)
         which can be used to evaluate u at any time point (ufunc(t)).
@@ -2032,8 +2032,8 @@ class odefun_sympy(Solver):
         self.t = np.asarray(time_points)
         self.initialize_for_solve()
 
-        self.sympy.mpmath.mp.dps = 15  # accuracy
-        self.ufunc = self.sympy.mpmath.odefun(
+        self.mpmath.mp.dps = 15  # accuracy
+        self.ufunc = self.mpmath.odefun(
             self.f4odefun, time_points[0], self.U0)
 
         # u and t to be returned are now computed by sampling self.ufunc
@@ -3060,7 +3060,7 @@ def list_not_suitable_complex_solvers():
         'Lsoda', 'Lsodar', 'Lsode', 'Lsodes',
         'Lsodi', 'Lsodis', 'Lsoibt',
         'RKC', 'RKF45',
-        'odefun_sympy', 'lsoda_scipy',
+        'odefun_mpmath', 'lsoda_scipy',
         'Radau5', 'Radau5Explicit', 'Radau5Implicit',
         'EulerCromer',
         ]

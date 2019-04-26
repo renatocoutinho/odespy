@@ -1,7 +1,7 @@
 from __future__ import print_function
 from __future__ import absolute_import
 from odespy import *
-from .problems import *
+from problems import *
 from scitools.std import plot, hold
 try:
     import joblib  # need joblib for storing database nested dict

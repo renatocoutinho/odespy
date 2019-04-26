@@ -32,7 +32,7 @@ Exponential = dict(
     f_kwargs=dict(a=-1., b=0.,),
     # These solvers are not suitable for this ODE problem
     exceptions=['Lsodi', 'Lsodis', 'Lsoibt', 'MyRungeKutta',
-                'MySolver', 'Lsodes', 'SymPy_odefun', 'AdaptiveResidual',
+                'MySolver', 'Lsodes', 'mpmath_odefun', 'AdaptiveResidual',
                 'Radau5', 'Radau5Explicit', 'Radau5Implicit', 'EulerCromer'],
     time_points=np.linspace(0., 1., 10),
     terminate=lambda u,t,step_number: u[step_number] <= 0.4,
@@ -192,7 +192,7 @@ ThetaRule=0.0374998399893818,
 Trapezoidal=0.0375041929371673,
 Vode=0.0375037017349515,
 lsoda_scipy=0.0375036977160605,
-odefun_sympy=0.0375036952176233,
+odefun_mpmath=0.0375036952176233,
         ),
     )
 

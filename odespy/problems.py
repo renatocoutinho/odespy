@@ -124,7 +124,7 @@ class Linear1(Problem):
         self.not_suitable_solvers = [
             'AdaptiveResidual', 'Lsodi', 'Lsodis', 'Lsoibt']
         if self.a < 0:
-            self.not_suitable_solvers += ['lsoda_scipy', 'odefun_sympy']
+            self.not_suitable_solvers += ['lsoda_scipy', 'odefun_mpmath']
 
     def f(self, u, t):
         return self.a + (u - self.a*t - self.b)**self.c
@@ -196,7 +196,7 @@ class Exponential(Problem):
             raise ValueError('a=%g is too small' % a)
         self.not_suitable_solvers = [
             'Lsodi', 'Lsodis', 'Lsoibt', 'MyRungeKutta',
-            'MySolver', 'Lsodes', 'SymPy_odefun']
+            'MySolver', 'Lsodes', 'mpmath_odefun']
 
     def f(self, u, t):
         return self.a*u + self.b
